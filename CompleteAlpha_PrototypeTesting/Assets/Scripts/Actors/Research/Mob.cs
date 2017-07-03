@@ -11,7 +11,7 @@ public class Mob : IA
 
     [Tooltip("The health relied stats of the Character")]
     [SerializeField]
-    private HealthPresset healthPresset;
+    private static HealthPresset healthPresset;
 
     private static HealthPresset tempHealthPresset;
 

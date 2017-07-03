@@ -9,7 +9,7 @@ public class Killable : MonoBehaviour
 
     #region:health
     public float CurrentHealth { get; protected set; }
-    public float MaxHealth { get; set; }
+    public float MaxHealth { get; protected set; }
     #endregion
 
     #region:healing
