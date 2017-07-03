@@ -1,0 +1,4 @@
+sceneSetups:
+- path: C:/Users/smasson99/Documents/UnityProjects/IA_Combat_Testing_01/Assets/Scene/IA_Combat_Testing_01.unity
+  isLoaded: 1
+  isActive: 1
