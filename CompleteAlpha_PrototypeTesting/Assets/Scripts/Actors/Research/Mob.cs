@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
 public class Mob : IA
 {
     #region components
@@ -17,7 +18,7 @@ public class Mob : IA
 
     #endregion
 
-    void Start()
+    private void Start()
     {
         tempStatPresset = statPresset;
         tempHealthPresset = healthPresset;

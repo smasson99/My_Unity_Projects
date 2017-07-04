@@ -9,6 +9,10 @@ public class Character : Killable
     public bool IsInCombat { get; protected set; }
     #endregion
 
+    #region:objective
+    public bool HasTarget { get; protected set; }
+    #endregion
+
     #region:healthRegen
 
     public float CurrentPassiveHealthRegen { get; protected set; }
@@ -68,7 +72,7 @@ public class Character : Killable
     public Character(CharacterStatPresset statPresset, HealthPresset healthPresset)
         :base(statPresset, healthPresset)
     {
-        
+        CurrentSpeedBonus = 1;
     }
 
     #region:basicFunctionalities
@@ -88,10 +92,10 @@ public class Character : Killable
         CurrentSpeed = basicStatPresset.BasicSpeed;
     }
 
-    //public void ResetCurrentSpeedBonus()
-    //{
-    //    CurrentSpeedBonus = 0.00f;
-    //}
+    public void ResetCurrentSpeedBonus()
+    {
+        CurrentSpeedBonus = 1.00f;
+    }
 
     public void ResetCurrentMeleeDamage()
     {
@@ -134,7 +138,7 @@ public class Character : Killable
 
     void FixedUpdate()
     {
-        //Gérer kes bonus
+        //Gérer les bonus
     }
 
     #endregion

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/CameraTest_Map_01.unity
+- path: Assets/Scenes/Heritage.unity
   isLoaded: 1
   isActive: 1

@@ -81,9 +81,9 @@
     <Compile Include="Assets\Scripts\Actors\Actions\AcquireTarget.cs" />
     <Compile Include="Assets\Scripts\Actors\Entitys\BasicMobEntity.cs" />
     <Compile Include="Assets\Scripts\Actors\Entitys\CharacterEntity.cs" />
-    <Compile Include="Assets\Scripts\Actors\Pressets\CharacterStatPresset.cs" />
-    <Compile Include="Assets\Scripts\Actors\Pressets\HealthPresset.cs" />
     <Compile Include="Assets\Scripts\Actors\Research\Character.cs" />
+    <Compile Include="Assets\Scripts\Actors\Research\CharacterStatPresset.cs" />
+    <Compile Include="Assets\Scripts\Actors\Research\HealthPresset.cs" />
     <Compile Include="Assets\Scripts\Actors\Research\IA.cs" />
     <Compile Include="Assets\Scripts\Actors\Research\Killable.cs" />
     <Compile Include="Assets\Scripts\Actors\Research\Mob.cs" />
