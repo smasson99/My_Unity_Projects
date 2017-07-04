@@ -73,7 +73,7 @@ public class Killable : MonoBehaviour
     //Reset the health
     public void ResetMaxHealth()
     {
-        MaxHealth = basicHealthPresset.BasicHealth;
+        MaxHealth = basicHealthPresset.Health;
     }
     public void ResetCurrentHealth()
     {
@@ -87,52 +87,52 @@ public class Killable : MonoBehaviour
     //Reset the resistance
     public void ResetCurrentPhysicalResistance()
     {
-        CurrentPhysicalResistance = basicStatPresset.BasicPhysicalResistance;
+        CurrentPhysicalResistance = basicStatPresset.PhysicalResistance;
     }
 
     public void ResetCurrentMagicalResistance()
     {
-        CurrentMagicalResistance = basicStatPresset.BasicMagicalResistance;
+        CurrentMagicalResistance = basicStatPresset.MagicalResistance;
     }
 
     public void ResetCurrentElementalResistance()
     {
-        CurrentElementalResistance = basicStatPresset.BasicElementalResistance;
+        CurrentElementalResistance = basicStatPresset.ElementalResistance;
     }
 
     public void ResetCurrentFireResistance()
     {
-        CurrentFireResistance = basicStatPresset.BasicFireResistance;
+        CurrentFireResistance = basicStatPresset.FireResistance;
     }
 
     public void ResetCurrentWaterResistance()
     {
-        CurrentWaterResistance = basicStatPresset.BasicWaterResistance;
+        CurrentWaterResistance = basicStatPresset.WaterResistance;
     }
 
     public void ResetCurrentAirResistance()
     {
-        CurrentAirResistance = basicStatPresset.BasicAirResistance;
+        CurrentAirResistance = basicStatPresset.AirResistance;
     }
 
     public void ResetCurrentEarthResistance()
     {
-        CurrentEarthResistance = basicStatPresset.BasicEarthResistance;
+        CurrentEarthResistance = basicStatPresset.EarthResistance;
     }
 
     public void ResetCurrentIceResistance()
     {
-        CurrentIceResistance = basicStatPresset.BasicIceResistance;
+        CurrentIceResistance = basicStatPresset.IceResistance;
     }
 
     public void ResetCurrentCriticalResistance()
     {
-        CurrentCriticalResistance = basicStatPresset.BasicCriticalResistance;
+        CurrentCriticalResistance = basicStatPresset.CriticalResistance;
     }
 
     public void ResetCurrentBasicResistance()
     {
-        CurrentOverhallResistance = basicStatPresset.BasicOverhallResistance;
+        CurrentOverhallResistance = basicStatPresset.OverhallResistance;
     }
     #endregion
 }

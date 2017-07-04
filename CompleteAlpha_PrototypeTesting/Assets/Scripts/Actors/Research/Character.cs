@@ -79,17 +79,17 @@ public class Character : Killable
 
     public void ResetCurrentPassiveHealthRegen()
     {
-        CurrentPassiveHealthRegen = basicHealthPresset.BasicPassiveHealthRegen;
+        CurrentPassiveHealthRegen = basicHealthPresset.PassiveHealthRegen;
     }
 
     public void ResetCurrentCombatHealthRegen()
     {
-        CurrentCombatHealthRegen = basicHealthPresset.BasicCombatHealthRegen;
+        CurrentCombatHealthRegen = basicHealthPresset.CombatHealthRegen;
     }
 
     public virtual void ResetCurrentSpeed()
     {
-        CurrentSpeed = basicStatPresset.BasicSpeed;
+        CurrentSpeed = basicStatPresset.Speed;
     }
 
     public void ResetCurrentSpeedBonus()
@@ -99,37 +99,37 @@ public class Character : Killable
 
     public void ResetCurrentMeleeDamage()
     {
-        CurrentMeleeDamage = basicStatPresset.BasicMeleeDamage;
+        CurrentMeleeDamage = basicStatPresset.MeleeDamage;
     }
 
     public void ResetCurrentRangeDamage()
     {
-        CurrentRangeDamage = basicStatPresset.BasicRangeDamage;
+        CurrentRangeDamage = basicStatPresset.RangeDamage;
     }
 
     public void ResetCurrentCriticalChances()
     {
-        CurrentCriticalChances = basicStatPresset.BasicCriticalChances;
+        CurrentCriticalChances = basicStatPresset.CriticalChances;
     }
 
     public void ResetCurrentDamagePenetration()
     {
-        CurrentDamagePenetration = basicStatPresset.BasicDamagePenetration;
+        CurrentDamagePenetration = basicStatPresset.DamagePenetration;
     }
 
     public void ResetCurrentBlockChances()
     {
-        CurrentBlockChances = basicStatPresset.BasicBlockChances;
+        CurrentBlockChances = basicStatPresset.BlockChances;
     }
 
     public void ResetCurrentDodgeChances()
     {
-        CurrentDodgeChances = basicStatPresset.BasicDodgeChances;
+        CurrentDodgeChances = basicStatPresset.DodgeChances;
     }
 
     public void ResetCurrentReplyChances()
     {
-        CurrentReplyChances = basicStatPresset.BasicReplyChances;
+        CurrentReplyChances = basicStatPresset.ReplyChances;
     }
 
     #endregion

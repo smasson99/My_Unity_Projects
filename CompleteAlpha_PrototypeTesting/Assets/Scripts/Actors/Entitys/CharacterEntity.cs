@@ -162,108 +162,108 @@ public class CharacterEntity : MonoBehaviour
 
     public void ResetCurrentHealth()
     {
-        CurrentHealth = basicHealthPresset.BasicHealth;
+        CurrentHealth = basicHealthPresset.Health;
     }
 
     public void ResetCurrentPassiveHealthRegen()
     {
-        CurrentPassiveHealthRegen = basicHealthPresset.BasicPassiveHealthRegen;
+        CurrentPassiveHealthRegen = basicHealthPresset.PassiveHealthRegen;
     }
 
     public void ResetCurrentCombatHealthRegen()
     {
-        CurrentCombatHealthRegen = basicHealthPresset.BasicCombatHealthRegen;
+        CurrentCombatHealthRegen = basicHealthPresset.CombatHealthRegen;
     }
 
     public void ResetCurrentSpeed()
     {
-        CurrentSpeed = basicStatPresset.BasicSpeed;
+        CurrentSpeed = basicStatPresset.Speed;
         agent.speed = CurrentSpeed;
     }
 
     public void ResetCurrentPhysicalResistance()
     {
-        CurrentPhysicalResistance = basicStatPresset.BasicPhysicalResistance;
+        CurrentPhysicalResistance = basicStatPresset.PhysicalResistance;
     }
 
     public void ResetCurrentMagicalResistance()
     {
-        CurrentMagicalResistance = basicStatPresset.BasicMagicalResistance;
+        CurrentMagicalResistance = basicStatPresset.MagicalResistance;
     }
 
     public void ResetCurrentElementalResistance()
     {
-        CurrentElementalResistance = basicStatPresset.BasicElementalResistance;
+        CurrentElementalResistance = basicStatPresset.ElementalResistance;
     }
 
     public void ResetCurrentFireResistance()
     {
-        CurrentFireResistance = basicStatPresset.BasicFireResistance;
+        CurrentFireResistance = basicStatPresset.FireResistance;
     }
 
     public void ResetCurrentWaterResistance()
     {
-        CurrentWaterResistance = basicStatPresset.BasicWaterResistance;
+        CurrentWaterResistance = basicStatPresset.WaterResistance;
     }
 
     public void ResetCurrentAirResistance()
     {
-        CurrentAirResistance = basicStatPresset.BasicAirResistance;
+        CurrentAirResistance = basicStatPresset.AirResistance;
     }
 
     public void ResetCurrentEarthResistance()
     {
-        CurrentEarthResistance = basicStatPresset.BasicEarthResistance;
+        CurrentEarthResistance = basicStatPresset.EarthResistance;
     }
 
     public void ResetCurrentIceResistance()
     {
-        CurrentIceResistance = basicStatPresset.BasicIceResistance;
+        CurrentIceResistance = basicStatPresset.IceResistance;
     }
 
     public void ResetCurrentCriticalResistance()
     {
-        CurrentCriticalResistance = basicStatPresset.BasicCriticalResistance;
+        CurrentCriticalResistance = basicStatPresset.CriticalResistance;
     }
 
     public void ResetCurrentBasicResistance()
     {
-        CurrentOverhallResistance = basicStatPresset.BasicOverhallResistance;
+        CurrentOverhallResistance = basicStatPresset.OverhallResistance;
     }
 
     public void ResetCurrentMeleeDamage()
     {
-        CurrentMeleeDamage = basicStatPresset.BasicMeleeDamage;
+        CurrentMeleeDamage = basicStatPresset.MeleeDamage;
     }
 
     public void ResetCurrentRangeDamage()
     {
-        CurrentRangeDamage = basicStatPresset.BasicRangeDamage;
+        CurrentRangeDamage = basicStatPresset.RangeDamage;
     }
 
     public void ResetCurrentCriticalChances()
     {
-        CurrentCriticalChances = basicStatPresset.BasicCriticalChances;
+        CurrentCriticalChances = basicStatPresset.CriticalChances;
     }
 
     public void ResetCurrentDamagePenetration()
     {
-        CurrentDamagePenetration = basicStatPresset.BasicDamagePenetration;
+        CurrentDamagePenetration = basicStatPresset.DamagePenetration;
     }
 
     public void ResetCurrentBlockChances()
     {
-        CurrentBlockChances = basicStatPresset.BasicBlockChances;
+        CurrentBlockChances = basicStatPresset.BlockChances;
     }
 
     public void ResetCurrentDodgeChances()
     {
-        CurrentDodgeChances = basicStatPresset.BasicDodgeChances;
+        CurrentDodgeChances = basicStatPresset.DodgeChances;
     }
 
     public void ResetCurrentReplyChances()
     {
-        CurrentReplyChances = basicStatPresset.BasicReplyChances;
+        CurrentReplyChances = basicStatPresset.ReplyChances;
     }
 
     #endregion
