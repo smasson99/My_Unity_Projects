@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("Scripts/Stats/Character_DObject_Stats")]
+[AddComponentMenu("Scripts/Character/Destroyable_CharaterORObject_Stats")]
 public class Stats : MonoBehaviour
 {
+    #region:values
     [Tooltip("The main stats of the entity")]
     [SerializeField]
     private HealthPresset healthStats;
@@ -44,7 +45,8 @@ public class Stats : MonoBehaviour
     }
 
     private float[] stats;
-
+    #endregion
+    #region:basicFunctions
     void Start()
     {
         //Instantiate values
@@ -52,7 +54,8 @@ public class Stats : MonoBehaviour
         //Call the functions
         LaunchTheStatData(stats);
     }
-
+    #endregion
+    #region:functionalities
     private void LaunchTheStatData(float[] tab)
     {
         if (tab.Length == healthStats.CompiledValues.Length + characterStats.CompiledValues.Length)
@@ -67,4 +70,5 @@ public class Stats : MonoBehaviour
             }
         }
     }
+    #endregion
 }

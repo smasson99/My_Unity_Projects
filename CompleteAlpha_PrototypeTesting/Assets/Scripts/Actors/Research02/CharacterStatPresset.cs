@@ -4,7 +4,7 @@
 public class CharacterStatPresset : ScriptableObject
 {
     #region:values
-    [Tooltip("The basic Speed of the Character, without any bonus.")]
+    [Tooltip("The Speed of the Character, without any bonus.")]
     [SerializeField]
     private float speed;
 
@@ -13,7 +13,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return speed; }
     }
 
-    [Tooltip("The basic Physical resistance of the Character, without any bonus.")]
+    [Tooltip("The Physical resistance of the Character, without any bonus.")]
     [SerializeField]
     private float physicalResistance;
 
@@ -22,7 +22,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return physicalResistance; }
     }
 
-    [Tooltip("The basic Magical resistance of the Character, without any bonus.")]
+    [Tooltip("The Magical resistance of the Character, without any bonus.")]
     [SerializeField]
     private float magicalResistance;
 
@@ -31,7 +31,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return magicalResistance; }
     }
 
-    [Tooltip("The basic Overhal Elemental resistance of the Character, without any bonus.")]
+    [Tooltip("The Overhal Elemental resistance of the Character, without any bonus.")]
     [SerializeField]
     private float elementalResistance;
 
@@ -40,7 +40,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return elementalResistance; }
     }
 
-    [Tooltip("The basic Fire resistance of the Character, without any bonus.")]
+    [Tooltip("The Fire resistance of the Character, without any bonus.")]
     [SerializeField]
     private float fireResistance;
 
@@ -49,7 +49,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return fireResistance; }
     }
 
-    [Tooltip("The basic Water resistance of the Character, without any bonus.")]
+    [Tooltip("The Water resistance of the Character, without any bonus.")]
     [SerializeField]
     private float waterResistance;
 
@@ -58,7 +58,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return waterResistance; }
     }
 
-    [Tooltip("The basic Air resistance of the Character, without any bonus.")]
+    [Tooltip("The Air resistance of the Character, without any bonus.")]
     [SerializeField]
     private float airResistance;
 
@@ -67,7 +67,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return airResistance; }
     }
 
-    [Tooltip("The basic Earth resistance of the Character, without any bonus.")]
+    [Tooltip("The Earth resistance of the Character, without any bonus.")]
     [SerializeField]
     private float earthResistance;
 
@@ -76,7 +76,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return earthResistance; }
     }
 
-    [Tooltip("The basic Ice resistance of the Character, without any bonus.")]
+    [Tooltip("The Ice resistance of the Character, without any bonus.")]
     [SerializeField]
     private float iceResistance;
 
@@ -85,7 +85,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return iceResistance; }
     }
 
-    [Tooltip("The basic Critical resistance of the Character, without any bonus.")]
+    [Tooltip("The Critical resistance of the Character, without any bonus.")]
     [SerializeField]
     private float criticalResistance;
 
@@ -94,7 +94,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return criticalResistance; }
     }
 
-    [Tooltip("The basic Overhall resistance of the Character, without any bonus.")]
+    [Tooltip("The Overhall resistance of the Character, without any bonus.")]
     [SerializeField]
     private float overhallResistance;
 
@@ -103,7 +103,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return overhallResistance; }
     }
 
-    [Tooltip("The basic Critical Chances of the Character, without any bonus.")]
+    [Tooltip("The Critical Chances of the Character, without any bonus.")]
     [SerializeField]
     private float criticalChances;
 
@@ -112,7 +112,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return criticalChances; }
     }
 
-    [Tooltip("The basic DamagePenetration of the Character, without any bonus.")]
+    [Tooltip("The DamagePenetration of the Character, without any bonus.")]
     [SerializeField]
     private float damagePenetration;
 
@@ -121,7 +121,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return damagePenetration; }
     }
 
-    [Tooltip("The basic Block Chances of the Character, without any bonus.")]
+    [Tooltip("The Block Chances of the Character, without any bonus.")]
     [SerializeField]
     private float blockChances;
 
@@ -130,7 +130,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return blockChances; }
     }
 
-    [Tooltip("The basic Dodge Chances of the Character, without any bonus.")]
+    [Tooltip("The Dodge Chances of the Character, without any bonus.")]
     [SerializeField]
     private float dodgeChances;
 
@@ -139,7 +139,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return dodgeChances; }
     }
 
-    [Tooltip("The basic Reply Chances of the Character, without any bonus.")]
+    [Tooltip("The Reply Chances of the Character, without any bonus.")]
     [SerializeField]
     private float replyChances;
 
@@ -148,7 +148,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return replyChances; }
     }
 
-    [Tooltip("The basic melee damage of the Character")]
+    [Tooltip("The Melee Damage of the Character")]
     [SerializeField]
     private float meleeDamage;
 
@@ -157,7 +157,7 @@ public class CharacterStatPresset : ScriptableObject
         get { return meleeDamage; }
     }
 
-    [Tooltip("The basic melee damage of the Character")]
+    [Tooltip("The Range Damage of the Character")]
     [SerializeField]
     private float rangeDamage;
 
@@ -174,14 +174,18 @@ public class CharacterStatPresset : ScriptableObject
     }
     #endregion
 
-    private CharacterStatPresset()
+    #region:functionalities
+
+    void Start()
     {
         compiledValues = new float[]
         {
-            speed, physicalResistance, magicalResistance, elementalResistance, fireResistance,
-            waterResistance, airResistance, earthResistance, iceResistance, criticalResistance,
-            overhallResistance, criticalChances, damagePenetration, blockChances, dodgeChances,
-            replyChances, meleeDamage, rangeDamage
+            speed, physicalResistance, magicalResistance, elementalResistance,
+            fireResistance, waterResistance, airResistance, earthResistance,
+            iceResistance, criticalResistance, overhallResistance, criticalChances,
+            damagePenetration, blockChances, dodgeChances, replyChances, meleeDamage,
+            rangeDamage
         };
     }
+    #endregion
 }

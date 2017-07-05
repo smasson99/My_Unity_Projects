@@ -3,9 +3,9 @@
 [CreateAssetMenu(menuName = "Presset/Health")]
 public class HealthPresset : ScriptableObject
 {
-    #region:values
-    [Tooltip("The basic health of the Character, without any bonus.")]
-    [SerializeField] private float health;
+    [Tooltip("The max health of the Character, without any bonus.")]
+    [SerializeField]
+    private float health;
 
     public float Health
     {
@@ -36,9 +36,8 @@ public class HealthPresset : ScriptableObject
     {
         get { return compiledValues; }
     }
-    #endregion
 
-    private HealthPresset()
+    void Start()
     {
         compiledValues = new float[] {health, passiveHealthRegen, combatHealthRegen};
     }
