@@ -15,7 +15,18 @@ public class MobEntity : MonoBehaviour
     #endregion
     #region:values
     private bool hasTarget;
-    private Vector3 objective;
+    private bool hasObjective;
+    private GameObject objective;
+
+    public GameObject Objective
+    {
+        get { return objective; }
+        set
+        {
+            objective = value;
+            hasObjective = true;
+        }
+    }
     private NavMeshAgent agent;
     private GameObject target;
     public GameObject Target
@@ -24,11 +35,13 @@ public class MobEntity : MonoBehaviour
         private set
         {
             target = value;
-            agent.SetDestination(target.transform.position);
             hasTarget = true;
         }
     }
 
+    [Tooltip("If the entity priorise the target over the objective when having a target.")]
+    [SerializeField]
+    private bool priorityToTarget = true;
     #endregion
 
     void Awake()
@@ -46,9 +59,20 @@ public class MobEntity : MonoBehaviour
         targetLostDetector.OnTargetLost += LoseTarget;
     }
 
+    void FixedUpdate()
+    {
+        if (hasTarget && priorityToTarget)
+        {
+            agent.SetDestination(target.GetComponentInChildren<HitZone>().transform.position);
+        }
+        else if (hasObjective)
+        {
+            agent.SetDestination(objective.transform.position);
+        }
+    }
+
     private void LoseTarget()
     {
-        agent.SetDestination(objective);
         hasTarget = false;
     }
 

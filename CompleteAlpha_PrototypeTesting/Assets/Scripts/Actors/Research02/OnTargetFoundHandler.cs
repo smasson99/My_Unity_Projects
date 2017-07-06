@@ -8,11 +8,11 @@ public class OnTargetFoundHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponentInParent<Team>().CurrentTeam != GetComponentInParent<Team>().CurrentTeam)
+        if (other.GetComponent<Team>().CurrentTeam != GetComponentInParent<Team>().CurrentTeam)
         {
             PotentialTargetFound(other.gameObject, false);
         }
-        else if (other.GetComponentInParent<Team>())
+        else if (other.GetComponent<Team>())
         {
             PotentialTargetFound(other.gameObject, true);
         }

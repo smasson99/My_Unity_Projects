@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Actors\Research\Mob.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\CharacterStatPresset.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\HealthPresset.cs" />
+    <Compile Include="Assets\Scripts\Actors\Research02\HitZone.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\MobEntity.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\OnTargetFoundHandler.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\OnTargetLostHandler.cs" />
