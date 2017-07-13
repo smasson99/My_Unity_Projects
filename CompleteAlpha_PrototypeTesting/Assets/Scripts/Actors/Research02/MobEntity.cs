@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 [AddComponentMenu("Scripts/Entitys/MobEntity")]
@@ -11,6 +10,7 @@ public class MobEntity : MonoBehaviour
     #endregion
     #region:components
     private Team team;
+    private UpdateHealthBar healthBar;
 
     public Team.TeamName Team
     {
@@ -91,23 +91,14 @@ public class MobEntity : MonoBehaviour
         targetLostDetector.OnTargetLost += LoseTarget;
         //Instantiate values
         currentStats = stats.AllStats;
-        //maxHealth = currentStats[(int)StatType.HEALTH];
+        maxHealth = currentStats[(int)StatType.HEALTH];
     }
     private void FixedUpdate()
     {
         if (hasTarget && priorityToTarget || hasObjective == false && hasTarget)
         {
             HitZone hitPoint = target.GetComponentInChildren<HitZone>();
-            //if (transform.position.x > hitPoint.transform.position.x - 0.25 && transform.position.x < hitPoint.transform.position.x + 0.25
-            //    && transform.position.z > hitPoint.transform.position.z - 0.25 && transform.position.z < hitPoint.transform.position.z + 0.25)
-            //{
-            //agent.isStopped = true;
-            //}
-            //else
-            //{
             agent.SetDestination(hitPoint.transform.position);
-            //agent.isStopped = false;
-            //}
         }
     }
     #endregion
@@ -120,7 +111,7 @@ public class MobEntity : MonoBehaviour
         {
             currentStats[(int)StatType.HEALTH] = 0;
         }
-        //Update the health bar here...
+        healthBar.UpdateVisual(currentStats[(int)StatType.HEALTH], maxHealth);
     }
     #endregion
 
@@ -138,8 +129,6 @@ public class MobEntity : MonoBehaviour
     {
         if (hasTarget == false && isAlly == false && isTargeted == false && priorityToTarget)
         {
-            BoxCollider hitPoint = potentialTarget.GetComponentInChildren<BoxCollider>();
-            agent.SetDestination(hitPoint.transform.position);
             Target = potentialTarget;
             potentialTarget.GetComponentInParent<MobEntity>().IsTargeted = true;
         }

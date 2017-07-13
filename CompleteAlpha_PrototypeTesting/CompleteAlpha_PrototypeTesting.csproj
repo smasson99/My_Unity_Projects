@@ -95,6 +95,7 @@
     <Compile Include="Assets\Scripts\Actors\Research02\StatType.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\Stats.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\Team.cs" />
+    <Compile Include="Assets\Scripts\Actors\Research02\UpdateHealthBar.cs" />
     <Compile Include="Assets\Scripts\Interface\Entitys\CameraEntity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
