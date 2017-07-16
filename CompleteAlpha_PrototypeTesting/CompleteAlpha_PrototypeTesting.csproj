@@ -92,7 +92,6 @@
     <Compile Include="Assets\Scripts\Actors\Research02\MobEntity.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\OnTargetFoundHandler.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\OnTargetLostHandler.cs" />
-    <Compile Include="Assets\Scripts\Actors\Research02\StatType.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\Stats.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\Team.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\UpdateHealthBar.cs" />

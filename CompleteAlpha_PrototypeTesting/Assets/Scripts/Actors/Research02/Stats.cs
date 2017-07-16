@@ -26,7 +26,7 @@ public class Stats : MonoBehaviour
 
     #endregion
     #region:basicFunctions
-    void Start()
+    void Awake()
     {
         //Instantiate values
         stats = new float[NumStats];
@@ -50,4 +50,29 @@ public class Stats : MonoBehaviour
         }
     }
     #endregion
+}
+
+public enum StatType
+{
+    HEALTH,
+    PASSIVE_HEALTH_REGEN,
+    COMBAT_HEALTH_REGEN,
+    SPEED,
+    PHYSICAL_RESISTANCE,
+    MAGICAL_RESISTANCE,
+    ELEMENTAL_RESISTANCE,
+    FIRE_RESISTANCE,
+    WATHER_RESISTANCE,
+    AIR_RESISTANCE,
+    EARTH_RESISTANCE,
+    ICE_RESISTANCE,
+    CRITICAL_RESISTANCE,
+    OVERHALL_RESISTANCE,
+    CRITICAL_CHANCES,
+    DAMAGE_PENETRATION,
+    BLOCK_CHANCES,
+    DODGE_CHANCES,
+    REPLY_CHANCES,
+    MELEE_DAMAGE,
+    RANGE_DAMAGE
 }
