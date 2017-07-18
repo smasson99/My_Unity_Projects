@@ -76,11 +76,24 @@ public class MobEntity : MonoBehaviour
 
     #region:values
     private float[] currentStats;
+    private float[] buffGrid;
+    private float[] debuffGrid;
     private float maxHealth;
     [SerializeField]
     [Tooltip("The time between every attack.")]
     private float attackDelay = 1.00f;
     private float attackWait;
+    private enum DamageType
+    {
+        PHYSICAL,
+        MAGICAL,
+        CRITICAL,
+        FIRE,
+        WATHER,
+        EARTH,
+        AIR
+    }
+
     #endregion
 
     #region:basicMethods
@@ -102,8 +115,11 @@ public class MobEntity : MonoBehaviour
         targetLostDetector.OnTargetLost += LoseTarget;
         //Instantiate values
         currentStats = stats.AllStats;
+        buffGrid = new float[stats.NumStats];
+        debuffGrid = new float[stats.NumStats];
         maxHealth = currentStats[(int)StatType.HEALTH];
         attackWait = Time.time;
+
     }
     private void FixedUpdate()
     {
@@ -116,7 +132,7 @@ public class MobEntity : MonoBehaviour
             //Wait for the moment to come, then attack!!!
             if (attackWait <= Time.time && canAttack)
             {
-                target.GetComponentInParent<MobEntity>().TakeDamage(GetDamage(StatType.MELEE_DAMAGE), StatType.PHYSICAL_RESISTANCE);
+                DealDamage(StatType.MELEE_DAMAGE, target.GetComponentInParent<MobEntity>());
                 attackWait = Time.time + attackDelay;
             }
         }
@@ -163,16 +179,14 @@ public class MobEntity : MonoBehaviour
         }
     }
 
-    private float GetDamage(StatType damageTypeName)
+    private void DealDamage(StatType damageTypeName, MobEntity target)
     {
         float basicDamage = currentStats[(int)damageTypeName];
-        float burstPenetration = (currentStats[(int)StatType.DAMAGE_PENETRATION] / 100) * basicDamage;
-        float burstCrit = 0;
+        target.TakeDamage(basicDamage, StatType.PHYSICAL_RESISTANCE);
         if (Random.Range(1, 100 + 1) <= currentStats[(int)StatType.CRITICAL_CHANCES])
         {
-            burstCrit = basicDamage * 0.50f;
+            target.TakeDamage((basicDamage) * (0.5f), StatType.CRITICAL_RESISTANCE);
         }
-        return basicDamage + burstPenetration + burstCrit;
     }
     #endregion
 }
