@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/IA_Combat_Testing_01.unity
+- path: C:/Users/Pc/Desktop/My_Unity_Projects/CompleteAlpha_PrototypeTesting/Assets/Scenes/Research_Mob01.unity
   isLoaded: 1
   isActive: 1

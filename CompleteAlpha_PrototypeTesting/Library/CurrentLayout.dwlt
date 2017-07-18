@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 11}
-  m_MinSize: {x: 950, y: 613}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -266,7 +266,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 950, y: 613}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &12
 MonoBehaviour:
@@ -448,19 +448,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts/Actors/Research02
+    - Assets/Pressets/Stats
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Actors/Research02
+  - Assets/Pressets/Stats
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\smasson99\Desktop\My_Unity_Projects\CompleteAlpha_PrototypeTesting
+  m_LastProjectPath: C:\Users\Pc\Desktop\My_Unity_Projects\CompleteAlpha_PrototypeTesting
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a8250000
-    m_LastClickedID: 9640
-    m_ExpandedIDs: 00000000d424000002250000042500003e2500004a25000052250000562500005e2500006e2500008a2500008e25000000ca9a3bffffff7f
+    m_SelectedIDs: 38250000
+    m_LastClickedID: 9528
+    m_ExpandedIDs: 00000000d82400000625000008250000422500004e250000562500005a2500006225000072250000902500009425000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -488,7 +488,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d424000002250000042500003e2500004a25000052250000562500005e2500006e2500008a2500008e250000
+    m_ExpandedIDs: 00000000d82400000625000008250000422500004e250000562500005a25000062250000722500009025000094250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -604,8 +604,8 @@ MonoBehaviour:
     height: 249
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d0250000
-    m_LastClickedID: 9680
+    m_SelectedIDs: 
+    m_LastClickedID: 0
     m_ExpandedIDs: e4fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -656,14 +656,14 @@ MonoBehaviour:
     width: 842
     height: 430
   m_SceneLighting: 1
-  lastFramingTime: 2695.5699003351338
+  lastFramingTime: 1719.5091405329504
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 5.020653, y: 0.38292313, z: -1.1347404}
+    m_Target: {x: 3.5171092, y: 0.1391697, z: 3.2847028}
     speed: 2
-    m_Value: {x: 5.020653, y: 0.38292313, z: -1.1347404}
+    m_Value: {x: 3.5171092, y: 0.1391697, z: 3.2847028}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -690,9 +690,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 19.164124
+    m_Target: 5.482671
     speed: 2
-    m_Value: 19.164124
+    m_Value: 5.482671
   m_Ortho:
     m_Target: 1
     speed: 2

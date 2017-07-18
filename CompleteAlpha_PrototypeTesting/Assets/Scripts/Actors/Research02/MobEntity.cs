@@ -71,6 +71,10 @@ public class MobEntity : MonoBehaviour
     #region:values
     private float[] currentStats;
     private float maxHealth;
+    [SerializeField]
+    [Tooltip("The time between every attack.")]
+    private float attackDelay = 1.00f;
+    private float attackWait;
     #endregion
 
     #region:basicMethods
@@ -83,6 +87,7 @@ public class MobEntity : MonoBehaviour
         team = GetComponent<Team>();
         stats = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
+        healthBar = GetComponentInChildren<UpdateHealthBar>();
     }
     void Start()
     {
@@ -92,13 +97,22 @@ public class MobEntity : MonoBehaviour
         //Instantiate values
         currentStats = stats.AllStats;
         maxHealth = currentStats[(int)StatType.HEALTH];
+        attackWait = Time.time;
     }
     private void FixedUpdate()
     {
+        HitZone hitPoint;
+        //Make sure the entity is going to its target
         if (hasTarget && priorityToTarget || hasObjective == false && hasTarget)
         {
-            HitZone hitPoint = target.GetComponentInChildren<HitZone>();
+            hitPoint = target.GetComponentInChildren<HitZone>();
             agent.SetDestination(hitPoint.transform.position);
+            //Wait for the moment to come, then attack!!!
+            if (attackWait <= Time.time /*&& transform.position == hitPoint.transform.position*/)
+            {
+                target.GetComponentInParent<MobEntity>().TakeDamage(GetDamage(StatType.MELEE_DAMAGE), StatType.PHYSICAL_RESISTANCE);
+                attackWait = Time.time + attackDelay;
+            }
         }
     }
     #endregion
@@ -132,6 +146,18 @@ public class MobEntity : MonoBehaviour
             Target = potentialTarget;
             potentialTarget.GetComponentInParent<MobEntity>().IsTargeted = true;
         }
+    }
+
+    private float GetDamage(StatType damageTypeName)
+    {
+        float basicDamage = currentStats[(int)damageTypeName];
+        float burstPenetration = (currentStats[(int)StatType.DAMAGE_PENETRATION] / 100) * basicDamage;
+        float burstCrit = 0;
+        if (Random.Range(1, 100 + 1) <= currentStats[(int)StatType.CRITICAL_CHANCES])
+        {
+            burstCrit = basicDamage * 0.50f;
+        }
+        return basicDamage + burstPenetration + burstCrit;
     }
     #endregion
 }

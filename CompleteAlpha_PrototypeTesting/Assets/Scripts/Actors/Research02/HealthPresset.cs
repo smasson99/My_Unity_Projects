@@ -37,7 +37,7 @@ public class HealthPresset : ScriptableObject
         get { return compiledValues; }
     }
 
-    void Start()
+    private void Start()
     {
         compiledValues = new float[] {health, passiveHealthRegen, combatHealthRegen};
     }
