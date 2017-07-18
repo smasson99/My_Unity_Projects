@@ -29,16 +29,4 @@ public class HealthPresset : ScriptableObject
     {
         get { return combatHealthRegen; }
     }
-
-    private float[] compiledValues;
-
-    public float[] CompiledValues
-    {
-        get { return compiledValues; }
-    }
-
-    private void Start()
-    {
-        compiledValues = new float[] {health, passiveHealthRegen, combatHealthRegen};
-    }
 }

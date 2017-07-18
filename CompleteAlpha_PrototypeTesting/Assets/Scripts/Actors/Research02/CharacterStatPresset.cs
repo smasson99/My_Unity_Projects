@@ -165,27 +165,8 @@ public class CharacterStatPresset : ScriptableObject
     {
         get { return rangeDamage; }
     }
-
-    private float[] compiledValues;
-
-    public float[] CompiledValues
-    {
-        get { return compiledValues; }
-    }
     #endregion
 
     #region:functionalities
-
-    void Start()
-    {
-        compiledValues = new float[]
-        {
-            speed, physicalResistance, magicalResistance, elementalResistance,
-            fireResistance, waterResistance, airResistance, earthResistance,
-            iceResistance, criticalResistance, overhallResistance, criticalChances,
-            damagePenetration, blockChances, dodgeChances, replyChances, meleeDamage,
-            rangeDamage
-        };
-    }
     #endregion
 }

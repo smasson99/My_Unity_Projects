@@ -41,6 +41,12 @@ public class MobEntity : MonoBehaviour
     }
     private bool hasTarget;
     private bool hasObjective;
+    private bool canAttack;
+    public bool CanAttack
+    {
+        get { return canAttack; }
+        set { canAttack = value; }
+    }
     #endregion
     #region:destinations
     private GameObject objective;
@@ -108,7 +114,7 @@ public class MobEntity : MonoBehaviour
             hitPoint = target.GetComponentInChildren<HitZone>();
             agent.SetDestination(hitPoint.transform.position);
             //Wait for the moment to come, then attack!!!
-            if (attackWait <= Time.time /*&& transform.position == hitPoint.transform.position*/)
+            if (attackWait <= Time.time && canAttack)
             {
                 target.GetComponentInParent<MobEntity>().TakeDamage(GetDamage(StatType.MELEE_DAMAGE), StatType.PHYSICAL_RESISTANCE);
                 attackWait = Time.time + attackDelay;
@@ -141,10 +147,19 @@ public class MobEntity : MonoBehaviour
 
     private void InspectPotentialTarget(GameObject potentialTarget, bool isAlly)
     {
-        if (hasTarget == false && isAlly == false && isTargeted == false && priorityToTarget)
+        if (hasTarget == false && isAlly == false && priorityToTarget)
         {
-            Target = potentialTarget;
-            potentialTarget.GetComponentInParent<MobEntity>().IsTargeted = true;
+            
+            if (isTargeted == false)
+            {
+                Target = potentialTarget;
+                potentialTarget.GetComponentInParent<MobEntity>().IsTargeted = true;
+                potentialTarget.GetComponentInParent<MobEntity>().Target = transform.gameObject;
+            }
+            else
+            {
+                Target = potentialTarget;
+            }
         }
     }
 

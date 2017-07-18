@@ -29,26 +29,15 @@ public class Stats : MonoBehaviour
     void Awake()
     {
         //Instantiate values
-        stats = new float[NumStats];
-        //Call the functions
-        LaunchTheStatData(ref stats);
+        stats = new float[21] { healthStats.Health, healthStats.PassiveHealthRegen, healthStats.CombatHealthRegen,
+            characterStats.Speed, characterStats.PhysicalResistance, characterStats.MagicalResistance, characterStats.ElementalResistance,
+        characterStats.FireResistance, characterStats.WaterResistance, characterStats.AirResistance, characterStats.EarthResistance,
+        characterStats.IceResistance, characterStats.CriticalResistance, characterStats.OverhallResistance, characterStats.CriticalChances,
+        characterStats.DamagePenetration, characterStats.BlockChances, characterStats.DodgeChances, characterStats.ReplyChances,
+        characterStats.MeleeDamage, characterStats.RangeDamage};
     }
     #endregion
     #region:functionalities
-    private void LaunchTheStatData(ref float[] tab)
-    {
-        if (tab.Length == healthStats.CompiledValues.Length + characterStats.CompiledValues.Length)
-        {
-            for (int i = 0; i < healthStats.CompiledValues.Length; i++)
-            {
-                tab[i] = healthStats.CompiledValues[i];
-            }
-            for (int i = healthStats.CompiledValues.Length - 1; i < characterStats.CompiledValues.Length; i++)
-            {
-                tab[i] = characterStats.CompiledValues[i];
-            }
-        }
-    }
     #endregion
 }
 
