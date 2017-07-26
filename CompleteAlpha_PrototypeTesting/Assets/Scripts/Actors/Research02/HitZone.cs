@@ -6,7 +6,7 @@ public class HitZone : MonoBehaviour
     #region:values
     private MobEntity entity;
     private float startAttackDelay;
-    private bool timerStarted;
+    private bool timerStarted = false;
 
     [Tooltip("The length is seconds of the delay before starting the first attack of the combat")]
     [SerializeField]
@@ -20,10 +20,11 @@ public class HitZone : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (timerStarted && Time.time >= startAttackDelay)
+        if (entity != null && timerStarted && Time.time >= startAttackDelay)
         {
             entity.CanAttack = true;
-            entity.Target.GetComponentInParent<MobEntity>().CanAttack = true;
+            if (entity.Target.GetComponentInParent<MobEntity>() != null)
+                entity.Target.GetComponentInParent<MobEntity>().CanAttack = true;
             timerStarted = false;
         }
     }
@@ -32,7 +33,7 @@ public class HitZone : MonoBehaviour
     #region:functionnalities
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject == entity.Target)
+        if (entity != null && collision.gameObject == entity.Target)
         {
             startAttackDelay = Time.time + delayLength;
             timerStarted = true;

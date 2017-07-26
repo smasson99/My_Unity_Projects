@@ -93,7 +93,6 @@ public class MobEntity : MonoBehaviour
         EARTH,
         AIR
     }
-
     #endregion
 
     #region:basicMethods
@@ -166,7 +165,7 @@ public class MobEntity : MonoBehaviour
         if (hasTarget == false && isAlly == false && priorityToTarget)
         {
             
-            if (isTargeted == false)
+            if (isTargeted == false && potentialTarget.GetComponentInParent<MobEntity>() != null)
             {
                 Target = potentialTarget;
                 potentialTarget.GetComponentInParent<MobEntity>().IsTargeted = true;
