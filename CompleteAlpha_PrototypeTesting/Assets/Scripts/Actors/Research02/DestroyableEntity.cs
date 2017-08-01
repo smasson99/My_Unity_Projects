@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("Scripts/Entitys/DestroyableObject")]
-public class DestroyableEntity : MonoBehaviour
+public class DestroyableEntity : Entity
 {
     #region:components
     private Team team;
@@ -24,16 +24,6 @@ public class DestroyableEntity : MonoBehaviour
     private float[] buffGrid;
     private float[] debuffGrid;
     private float maxHealth;
-    private enum DamageType
-    {
-        PHYSICAL,
-        MAGICAL,
-        CRITICAL,
-        FIRE,
-        WATHER,
-        EARTH,
-        AIR
-    }
     #endregion
 
     #region:basicFunctionnalities
@@ -54,7 +44,7 @@ public class DestroyableEntity : MonoBehaviour
     #endregion
 
     #region:publicFunctionalities
-    public void TakeDamage(float damagePoints, StatType damageResistName)
+    public override void TakeDamage(float damagePoints, StatType damageResistName)
     {
         currentStats[(int)StatType.HEALTH] -= damagePoints;
         if (currentStats[(int)StatType.HEALTH] < 0)

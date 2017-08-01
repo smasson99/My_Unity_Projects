@@ -4,28 +4,36 @@
 public class HitZone : MonoBehaviour
 {
     #region:values
-    private MobEntity entity;
+    private Entity entity;
+    private bool delayStarted;
     private float startAttackDelay;
-    private bool timerStarted = false;
-
-    [Tooltip("The length is seconds of the delay before starting the first attack of the combat")]
-    [SerializeField]
-    private float delayLength = 1.00f;
+    private float delayLength;
+    private GameObject targetCurrentParent;
     #endregion
 
     #region:basicFunctions
     private void Awake()
     {
         entity = GetComponentInParent<MobEntity>();
+        if (entity == null)
+        {
+            entity = GetComponentInParent<DestroyableEntity>();
+        }
     }
+
+    private void Start()
+    {
+        delayStarted = false;
+        delayLength = 1;
+    }
+
     private void FixedUpdate()
     {
-        if (entity != null && timerStarted && Time.time >= startAttackDelay)
+        if (delayStarted && startAttackDelay <= Time.time)
         {
             entity.CanAttack = true;
-            if (entity.Target.GetComponentInParent<MobEntity>() != null)
-                entity.Target.GetComponentInParent<MobEntity>().CanAttack = true;
-            timerStarted = false;
+            entity.Target.GetComponentInParent<Entity>().CanAttack = true;
+            delayStarted = false;
         }
     }
     #endregion
@@ -35,8 +43,12 @@ public class HitZone : MonoBehaviour
     {
         if (entity != null && collision.gameObject == entity.Target)
         {
-            startAttackDelay = Time.time + delayLength;
-            timerStarted = true;
+            if (targetCurrentParent == null || collision.gameObject != targetCurrentParent)
+            {
+                targetCurrentParent = collision.gameObject;
+                startAttackDelay = Time.time + delayLength;
+                delayStarted = true;
+            }
         }
     }
     #endregion

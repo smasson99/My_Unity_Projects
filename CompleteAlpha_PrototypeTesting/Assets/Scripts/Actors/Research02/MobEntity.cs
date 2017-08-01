@@ -2,7 +2,7 @@
 using UnityEngine.AI;
 
 [AddComponentMenu("Scripts/Entitys/MobEntity")]
-public class MobEntity : MonoBehaviour
+public class MobEntity : Entity
 {
     #region:eventHandlers
     private OnTargetFoundHandler targetDetector;
@@ -41,14 +41,9 @@ public class MobEntity : MonoBehaviour
     }
     private bool hasTarget;
     private bool hasObjective;
-    private bool canAttack;
-    public bool CanAttack
-    {
-        get { return canAttack; }
-        set { canAttack = value; }
-    }
     #endregion
     #region:destinations
+    private GameObjective gameObjectives;
     private GameObject objective;
     public GameObject Objective
     {
@@ -62,11 +57,10 @@ public class MobEntity : MonoBehaviour
 
     private NavMeshAgent agent;
 
-    private GameObject target;
-    public GameObject Target
+    public override GameObject Target
     {
         get { return target; }
-        private set
+        protected set
         {
             target = value;
             hasTarget = true;
@@ -83,25 +77,16 @@ public class MobEntity : MonoBehaviour
     [Tooltip("The time between every attack.")]
     private float attackDelay = 1.00f;
     private float attackWait;
-    private enum DamageType
-    {
-        PHYSICAL,
-        MAGICAL,
-        CRITICAL,
-        FIRE,
-        WATHER,
-        EARTH,
-        AIR
-    }
     #endregion
 
-    #region:basicMethods
+    #region:basicFunctionalities
     void Awake()
     {
         //Instantiate event handlers
         targetDetector = GetComponentInChildren<OnTargetFoundHandler>();
         targetLostDetector = GetComponentInChildren<OnTargetLostHandler>();
         //Instantiate components
+        gameObjectives = GetComponent<GameObjective>();
         team = GetComponent<Team>();
         stats = GetComponent<Stats>();
         agent = GetComponent<NavMeshAgent>();
@@ -112,14 +97,15 @@ public class MobEntity : MonoBehaviour
         //Subscribe to the events
         targetDetector.PotentialTargetFound += InspectPotentialTarget;
         targetLostDetector.OnTargetLost += LoseTarget;
+        gameObjectives.HasNoObj += ReactToNoGoal;
         //Instantiate values
         currentStats = stats.AllStats;
         buffGrid = new float[stats.NumStats];
         debuffGrid = new float[stats.NumStats];
         maxHealth = currentStats[(int)StatType.HEALTH];
-        attackWait = Time.time;
 
     }
+
     private void FixedUpdate()
     {
         HitZone hitPoint;
@@ -129,9 +115,20 @@ public class MobEntity : MonoBehaviour
             hitPoint = target.GetComponentInChildren<HitZone>();
             agent.SetDestination(hitPoint.transform.position);
             //Wait for the moment to come, then attack!!!
-            if (attackWait <= Time.time && canAttack)
+            if (canAttack && attackWait <= Time.time)
             {
-                DealDamage(StatType.MELEE_DAMAGE, target.GetComponentInParent<MobEntity>());
+                DealDamage(StatType.MELEE_DAMAGE, target.GetComponent<Entity>());
+                attackWait = Time.time + attackDelay;
+            }
+        }
+        else if (hasObjective && !priorityToTarget || hasObjective && !hasTarget)
+        {
+            agent.SetDestination(Objective.transform.position);
+            hitPoint = Objective.GetComponentInChildren<HitZone>();
+            //Wait for the moment to come, then attack!!!
+            if (canAttack && attackWait <= Time.time)
+            {
+                DealDamage(StatType.MELEE_DAMAGE, target.GetComponent<DestroyableEntity>());
                 attackWait = Time.time + attackDelay;
             }
         }
@@ -139,7 +136,7 @@ public class MobEntity : MonoBehaviour
     #endregion
 
     #region:publicFunctionalities
-    public void TakeDamage(float damagePoints, StatType damageResistName)
+    public override void TakeDamage(float damagePoints, StatType damageResistName)
     {
         currentStats[(int)StatType.HEALTH] -= damagePoints;
         if (currentStats[(int)StatType.HEALTH] < 0)
@@ -156,29 +153,36 @@ public class MobEntity : MonoBehaviour
         hasTarget = false;
         if (hasObjective)
         {
-            agent.SetDestination(new Vector3(0, 0, 0));
+            agent.SetDestination(GetCurrentObjective().transform.position);
         }
+    }
+
+    private GameObject GetCurrentObjective()
+    {
+        return gameObjectives.Objectives[0];
+    }
+
+    private void ReactToNoGoal()
+    {
+        hasObjective = false;
     }
 
     private void InspectPotentialTarget(GameObject potentialTarget, bool isAlly)
     {
         if (hasTarget == false && isAlly == false && priorityToTarget)
         {
-            
+
             if (isTargeted == false && potentialTarget.GetComponentInParent<MobEntity>() != null)
             {
-                Target = potentialTarget;
                 potentialTarget.GetComponentInParent<MobEntity>().IsTargeted = true;
                 potentialTarget.GetComponentInParent<MobEntity>().Target = transform.gameObject;
             }
-            else
-            {
-                Target = potentialTarget;
-            }
+            Target = potentialTarget;
+            attackWait = Time.time + attackDelay;
         }
     }
 
-    private void DealDamage(StatType damageTypeName, MobEntity target)
+    protected override void DealDamage(StatType damageTypeName, Entity target)
     {
         float basicDamage = currentStats[(int)damageTypeName];
         target.TakeDamage(basicDamage, StatType.PHYSICAL_RESISTANCE);

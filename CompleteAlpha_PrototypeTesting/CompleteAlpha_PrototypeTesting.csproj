@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Actors\Research02\CharacterStatPresset.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\ClickMovement.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\DestroyableEntity.cs" />
+    <Compile Include="Assets\Scripts\Actors\Research02\Entity.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\GameObjective.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\HealthPresset.cs" />
     <Compile Include="Assets\Scripts\Actors\Research02\HitZone.cs" />

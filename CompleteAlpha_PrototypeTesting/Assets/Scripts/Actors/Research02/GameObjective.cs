@@ -1,8 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-[CreateAssetMenu(menuName = "Presset/GameObjective")]
-public class GameObjective : ScriptableObject
+public delegate void OnNoObjectiveStatus();
+[AddComponentMenu("Scripts/Game/IA/GameObjectives")]
+public class GameObjective : MonoBehaviour
 {
+    #region:events
+    public event OnNoObjectiveStatus HasNoObj;
+    #endregion
     #region:values
     [Tooltip("A game objective")]
     [SerializeField]
@@ -124,39 +129,37 @@ public class GameObjective : ScriptableObject
         }
     }
 
-    private GameObject[] compiledObjectives;
+    private List<GameObject> objectives;
 
-    public GameObject[] CompiledObjectives
+    public List<GameObject> Objectives
     {
-        get { return compiledObjectives; }
-        set { compiledObjectives = value; }
-    }
-
-    private bool[] completedObjectives;
-
-    public bool[] CompletedObjectives
-    {
-        get { return completedObjectives; }
-        set { completedObjectives = value; }
+        get
+        {
+            return objectives;
+        }
+        set
+        {
+            objectives = value;
+            if (objectives == null)
+            {
+                HasNoObj();
+            }
+        }
     }
 
     #endregion
 
-    #region:funtionalities
+    #region:basicFuntionalities
     private void Start()
     {
-        compiledObjectives = new GameObject[] { objective01, objective02, objective03, objective04, objective05,
+        objectives = new List<GameObject>();
+        GameObject[] compiledObjectives = new GameObject[] { objective01, objective02, objective03, objective04, objective05,
             objective06, objective07, objective08, objective09, objective10 };
-        completedObjectives = new bool[completedObjectives.Length];
         for (int i = 0; i < compiledObjectives.Length; i++)
         {
             if (compiledObjectives[i] != null)
             {
-                completedObjectives[i] = true;
-            }
-            else
-            {
-                completedObjectives[i] = false;
+                objectives.Add(compiledObjectives[i]);
             }
         }
     }

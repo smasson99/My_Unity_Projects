@@ -6,10 +6,10 @@ public class UpdateHealthBar : MonoBehaviour
     #region:values
     #endregion
 
-    #region:basicFunctions
+    #region:basicFunctionalities
     #endregion
 
-    #region:functionalities
+    #region:publicFunctionalities
     public void UpdateVisual(float currentHealth, float maxHealth)
     {
         transform.localScale = new Vector3((currentHealth/maxHealth), transform.localScale.y, transform.localScale.z);
