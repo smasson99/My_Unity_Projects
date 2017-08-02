@@ -159,7 +159,7 @@ public class GameObjective : MonoBehaviour
         {
             if (compiledObjectives[i] != null)
             {
-                objectives.Add(compiledObjectives[i]);
+                Objectives.Add(compiledObjectives[i]);
             }
         }
     }
