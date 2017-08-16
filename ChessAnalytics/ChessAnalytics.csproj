@@ -78,18 +78,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ChessFirstAttempt\Scripts\EchecCase.cs" />
-    <Compile Include="Assets\ChessFirstAttempt\Scripts\EchecPiece.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\Code_01\AttackGen.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\Code_01\Case.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\Code_01\Jeu.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\Code_01\MoveGen.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\Code_01\Piece.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\FirstTestCode\EchecCase.cs" />
+    <Compile Include="Assets\ChessFirstAttempt\Scripts\FirstTestCode\EchecPiece.cs" />
     <Compile Include="Assets\ChessGame\code\ai\cgEngine.cs" />
     <Compile Include="Assets\ChessGame\code\ai\cgValueModifiers.cs" />
+    <Compile Include="Assets\ChessGame\code\cgBoard.cs" />
     <Compile Include="Assets\ChessGame\code\cgGlobal.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\cgBoard.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\cgNotation.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\moves\cgCastlingMove.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\moves\cgEnPassantMove.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\moves\cgMoveGenerator.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\moves\cgMoveSet.cs" />
-    <Compile Include="Assets\ChessGame\code\logic\moves\cgSimpleMove.cs" />
+    <Compile Include="Assets\ChessGame\code\cgNotation.cs" />
+    <Compile Include="Assets\ChessGame\code\moves\cgCastlingMove.cs" />
+    <Compile Include="Assets\ChessGame\code\moves\cgEnPassantMove.cs" />
+    <Compile Include="Assets\ChessGame\code\moves\cgMoveGenerator.cs" />
+    <Compile Include="Assets\ChessGame\code\moves\cgMoveSet.cs" />
+    <Compile Include="Assets\ChessGame\code\moves\cgSimpleMove.cs" />
     <Compile Include="Assets\ChessGame\code\scripts\cgChessBoardScript.cs" />
     <Compile Include="Assets\ChessGame\code\scripts\cgChessPieceScript.cs" />
     <Compile Include="Assets\ChessGame\code\scripts\cgGameOverScript.cs" />
