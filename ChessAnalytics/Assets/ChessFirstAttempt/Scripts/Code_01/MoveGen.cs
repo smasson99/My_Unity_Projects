@@ -51,7 +51,7 @@ public class MoveGen
         attacksPion_X = new int[2, 1]
         {
             { 1 },
-            { -1 }
+            { 1 }
         };
         attacksPion_Y = new int[2, 1]
         {
@@ -129,15 +129,31 @@ public class MoveGen
         };
 
         //ROI
-        movesRoi_X = new int[2, 4]
+        movesRoi_X = new int[8, 1]
         {
-            { 1, 1, 1, 0 },
-            { 0, -1, -1, -1 }
+            //Diagonales:
+            { 1 }, 
+            { 1 }, 
+            { -1 }, 
+            { -1 }, 
+            //Linéaires:
+            { 1 }, 
+            { -1 }, 
+            { 0 }, 
+            { 0 }
         };
-        movesRoi_Y = new int[2, 4]
+        movesRoi_Y = new int[8, 1]
         {
-            { 0, 1, -1, 1 },
-            { -1, 0, 1, -1 }
+            //Diagonales:
+            { 1 },
+            { -1 },
+            { 1 },
+            { -1 }, 
+            //Linéaires:
+            { 0 },
+            { 0 },
+            { 1 },
+            { -1 }
         };
     }
 }

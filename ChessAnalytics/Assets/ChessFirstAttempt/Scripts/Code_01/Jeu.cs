@@ -7,11 +7,10 @@ public class Jeu : MonoBehaviour
 {
     public GameObject pointUp;
     public GameObject pointDown;
+    public GameObject deadLocation;
     public float casesSpacement;
     public Color hilightColor = Color.green;
     public Color hilightEnemyColor = Color.red;
-    public const int CASES_WIDTH = 8;
-    public const int CASES_HEIGTH = 8;
     public int[] gameTable_Occuped;
 
     private static float Width;
@@ -20,9 +19,12 @@ public class Jeu : MonoBehaviour
     private List<Case> potentialMoveCases;
     private List<Case> potentialKillCases;
     private Case selectedCase;
+    private Case deadCase;
     private Piece selectedPiece;
+    private bool pieceSelected;
     private static int occupedIndicator;
     private static List<Piece> pieces;
+    private List<Piece> deadPieces;
 
     private static MoveGen MOVES;
 
@@ -30,6 +32,8 @@ public class Jeu : MonoBehaviour
     {
         cases = GetComponentsInChildren<Case>();
         pieces = GetComponentsInChildren<Piece>().ToList();
+        if (deadLocation != null)
+            deadCase = deadLocation.GetComponent<Case>();
     }
 
     private void Start()
@@ -51,13 +55,24 @@ public class Jeu : MonoBehaviour
         UpdateOccupedCases();
         potentialMoveCases = new List<Case>();
         potentialKillCases = new List<Case>();
-        //Subscribe to the clickUp event:
+        deadPieces = new List<Piece>();
+        pieceSelected = false;
+        //Subscribe to the clickUp events:
         foreach (Piece currentPiece in pieces)
         {
             currentPiece.SubscribeTo_CLICK_UP(
-                delegate(Piece clickedPiece) 
+                delegate (Piece clickedPiece)
                 {
                     SelectPiece(clickedPiece);
+                }
+                );
+        }
+        foreach (Case currentCase in cases)
+        {
+            currentCase.SubscribeToClickUp(
+                delegate (Case clickedCase)
+                {
+                    ClickCase(clickedCase);
                 }
                 );
         }
@@ -104,31 +119,24 @@ public class Jeu : MonoBehaviour
 
     private void SelectPiece(Piece pieceToSelect)
     {
-        //Clear the colored cases:
-        foreach(Case caseCourante in potentialMoveCases)
-        {
-            caseCourante.ResetColor();
-        }
-        foreach(Case caseCourante in potentialKillCases)
-        {
-            caseCourante.ResetColor();
-        }
+        //Clear the ancient case visual and Lists:
+        ClearHilightVisual();
         potentialMoveCases = new List<Case>();
         potentialKillCases = new List<Case>();
-        if (selectedCase != null)
-            selectedCase.ResetColor();
         //Set the new variables:
         selectedPiece = pieceToSelect;
+        pieceSelected = true;
         selectedCase = pieceToSelect.CurrentCase;
-        HilightCase(pieceToSelect.CurrentCase, hilightColor);
+        //Hilight the case of the selected piece:
+        pieceToSelect.CurrentCase.SetColor(hilightColor);
         //Now, hilight the way for the possibles movements of the selected piece:
         int index = (int)pieceToSelect.currentType;
-        
-        switch(index)
+
+        switch (index)
         {
             //ROI
             case 0:
-                for(int i = 0; i < MOVES.movesRoi_X.GetLength(0); i++)
+                for (int i = 0; i < MOVES.movesRoi_X.GetLength(0); i++)
                 {
                     for (int j = 0; j < MOVES.movesRoi_X.GetLength(1); j++)
                     {
@@ -149,7 +157,7 @@ public class Jeu : MonoBehaviour
                                         {
                                             if (pieceCourante.isWhite != selectedPiece.isWhite)
                                             {
-                                                HilightCase(caseCourante, hilightEnemyColor);
+                                                caseCourante.SetColor(hilightEnemyColor);
                                                 potentialKillCases.Add(caseCourante);
                                             }
                                             else
@@ -161,7 +169,7 @@ public class Jeu : MonoBehaviour
                                 }
                                 else if (mustBreak == false)
                                 {
-                                    HilightCase(caseCourante, hilightColor);
+                                    caseCourante.SetColor(hilightColor);
                                     potentialMoveCases.Add(caseCourante);
                                 }
                                 else
@@ -372,20 +380,17 @@ public class Jeu : MonoBehaviour
             case 5:
                 //For the Pawn movements
                 int iLength;
-                int jLength;
                 if (selectedPiece.isStarting)
                 {
                     iLength = MOVES.movesPion_X.GetLength(0);
-                    jLength = MOVES.movesPion_X.GetLength(1);
                 }
                 else
                 {
-                    iLength = MOVES.movesPion_X.GetLength(0)-1;
-                    jLength = MOVES.movesPion_X.GetLength(1)-1;
+                    iLength = MOVES.movesPion_X.GetLength(0) - 1;
                 }
                 for (int i = 0; i < iLength; i++)
                 {
-                    for (int j = 0; j < jLength; j++)
+                    for (int j = 0; j < MOVES.movesPion_X.GetLength(1); j++)
                     {
                         bool mustBreak = false;
                         Vector3 positionToSearch;
@@ -449,14 +454,14 @@ public class Jeu : MonoBehaviour
                         Vector3 positionToSearch;
                         if (pieceToSelect.isWhite)
                         {
-                            positionToSearch = new Vector3(pieceToSelect.transform.position.x + (casesSpacement * MOVES.movesPion_X[i, j]),
-                            pieceToSelect.transform.position.y + (casesSpacement * MOVES.movesPion_Y[i, j]),
+                            positionToSearch = new Vector3(pieceToSelect.transform.position.x + (casesSpacement * MOVES.attacksPion_X[i, j]),
+                            pieceToSelect.transform.position.y + (casesSpacement * MOVES.attacksPion_Y[i, j]),
                             0);
                         }
                         else
                         {
-                            positionToSearch = new Vector3(pieceToSelect.transform.position.x - (casesSpacement * MOVES.movesPion_X[i, j]),
-                            pieceToSelect.transform.position.y - (casesSpacement * MOVES.movesPion_Y[i, j]),
+                            positionToSearch = new Vector3(pieceToSelect.transform.position.x - (casesSpacement * MOVES.attacksPion_X[i, j]),
+                            pieceToSelect.transform.position.y - (casesSpacement * MOVES.attacksPion_Y[i, j]),
                             0);
                         }
                         foreach (Case caseCourante in cases)
@@ -465,11 +470,11 @@ public class Jeu : MonoBehaviour
                             {
                                 if (caseCourante.isOccuped)
                                 {
-                                    foreach(Piece pieceCourante in pieces)
+                                    foreach (Piece pieceCourante in pieces)
                                     {
                                         if (pieceCourante.CurrentCase == caseCourante)
                                         {
-                                            if (pieceCourante.isWhite == selectedPiece.isWhite)
+                                            if (pieceCourante.isWhite != selectedPiece.isWhite)
                                             {
                                                 potentialKillCases.Add(caseCourante);
                                                 HilightCase(caseCourante, hilightEnemyColor);
@@ -484,6 +489,29 @@ public class Jeu : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void ClickCase(Case clickedCase)
+    {
+        if (pieceSelected)
+        {
+            if (potentialMoveCases.Contains(clickedCase))
+            {
+                selectedPiece.MoveTo(clickedCase);
+                ClearHilightVisual();
+                pieceSelected = false;
+            }
+        }
+    }
+
+    private void ClearHilightVisual()
+    {
+        if (selectedCase != null)
+            selectedCase.ResetColor();
+        foreach (Case caseCourante in cases)
+        {
+            caseCourante.ResetColor();
         }
     }
 }

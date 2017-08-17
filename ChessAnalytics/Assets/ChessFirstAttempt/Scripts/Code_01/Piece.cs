@@ -38,12 +38,14 @@ public class Piece : MonoBehaviour
     public Sprite[] sprites;
     //Private values
     private SpriteRenderer sprite;
+    BoxCollider2D collider;
     private Case currentCase;
     private Action<Piece> up_Click;
     //Private methods
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        collider = GetComponent<BoxCollider2D>();
     }
     //Public methods
     public void StartAt(Case startCase, TypePiece newType)
@@ -80,6 +82,24 @@ public class Piece : MonoBehaviour
     private void OnMouseUp()
     {
         up_Click(this);
-        Debug.Log("Clicked!");
+        Debug.Log("Piece clicked!");
+    }
+
+    public void DisableCollider()
+    {
+        if (collider != null)
+        {
+            collider.enabled = false;
+            Debug.Log("Piece on case id == " + currentCase.id.ToString() + " is disabled.");
+        }
+    }
+
+    public void EnableCollider()
+    {
+        if (collider != null)
+        {
+            collider.enabled = true;
+            Debug.Log("Piece on case id == " + currentCase.id.ToString() + " is enabled.");
+        }
     }
 }
