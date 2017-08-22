@@ -12,10 +12,12 @@ public class Case : MonoBehaviour
     private Color initialColor;
     private SpriteRenderer sprite;
     private Action<Case> OnClickUp;
+    private Collider2D collider;
     //Methods
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        collider = GetComponent<Collider2D>();
     }
     //Private methods
     private void Start()
@@ -41,5 +43,16 @@ public class Case : MonoBehaviour
     public void SubscribeToClickUp(Action<Case> OnClickUpEvent)
     {
         OnClickUp = OnClickUpEvent;
+        Debug.Log("Case id == " + id.ToString() + "subscribed");
+    }
+
+    public void DisableCollider()
+    {
+        collider.enabled = false;
+    }
+
+    public void EnableCollider()
+    {
+        collider.enabled = true;
     }
 }

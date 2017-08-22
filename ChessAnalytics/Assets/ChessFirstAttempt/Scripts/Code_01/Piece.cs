@@ -38,14 +38,14 @@ public class Piece : MonoBehaviour
     public Sprite[] sprites;
     //Private values
     private SpriteRenderer sprite;
-    BoxCollider2D collider;
+    Collider2D collider;
     private Case currentCase;
     private Action<Piece> up_Click;
     //Private methods
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+        collider = GetComponent<Collider2D>();
     }
     //Public methods
     public void StartAt(Case startCase, TypePiece newType)
@@ -56,12 +56,17 @@ public class Piece : MonoBehaviour
 
     public void MoveTo(Case moveToCase)
     {
+        //Update last status:
+        CurrentCase.isOccuped = false;
+        currentCase.EnableCollider();
         //Change the current case
         CurrentCase = moveToCase;
         //Set the current position
         transform.position = new Vector3(moveToCase.transform.position.x, moveToCase.transform.position.y, 0);
         //Change the status
         isStarting = false;
+        CurrentCase.isOccuped = true;
+        CurrentCase.DisableCollider();
     }
 
     private void SetType(TypePiece newType)
@@ -74,9 +79,21 @@ public class Piece : MonoBehaviour
         }
     }
 
+    public bool Die(Case GraveCase)
+    {
+        //currentCase.EnableCollider();
+        currentCase = GraveCase;
+        transform.position = new Vector3(GraveCase.transform.position.x, GraveCase.transform.position.y, 0);
+        //Change the status
+        //isDead = true;
+        //Return isDead
+        return isDead;
+    }
+
     public void SubscribeTo_CLICK_UP(Action<Piece> onUp)
     {
         up_Click = onUp;
+        //Debug.Log("Piece on case id == " + currentCase.id + " has been subscribed!");
     }
 
     private void OnMouseUp()
@@ -90,7 +107,7 @@ public class Piece : MonoBehaviour
         if (collider != null)
         {
             collider.enabled = false;
-            Debug.Log("Piece on case id == " + currentCase.id.ToString() + " is disabled.");
+            //Debug.Log("Piece on case id == " + currentCase.id.ToString() + " is disabled.");
         }
     }
 
@@ -99,7 +116,7 @@ public class Piece : MonoBehaviour
         if (collider != null)
         {
             collider.enabled = true;
-            Debug.Log("Piece on case id == " + currentCase.id.ToString() + " is enabled.");
+            //Debug.Log("Piece on case id == " + currentCase.id.ToString() + " is enabled.");
         }
     }
 }

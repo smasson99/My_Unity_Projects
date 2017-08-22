@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,8 +21,9 @@ public class Jeu : MonoBehaviour
     private Case deadCase;
     private Piece selectedPiece;
     private bool pieceSelected;
+    private bool isTurnToWhite;
     private static int occupedIndicator;
-    private static List<Piece> pieces;
+    private static Piece[] pieces;
     private List<Piece> deadPieces;
 
     private static MoveGen MOVES;
@@ -31,7 +31,7 @@ public class Jeu : MonoBehaviour
     private void Awake()
     {
         cases = GetComponentsInChildren<Case>();
-        pieces = GetComponentsInChildren<Piece>().ToList();
+        pieces = GetComponentsInChildren<Piece>();
         if (deadLocation != null)
             deadCase = deadLocation.GetComponent<Case>();
     }
@@ -58,17 +58,10 @@ public class Jeu : MonoBehaviour
         deadPieces = new List<Piece>();
         pieceSelected = false;
         //Subscribe to the clickUp events:
-        foreach (Piece currentPiece in pieces)
-        {
-            currentPiece.SubscribeTo_CLICK_UP(
-                delegate (Piece clickedPiece)
-                {
-                    SelectPiece(clickedPiece);
-                }
-                );
-        }
         foreach (Case currentCase in cases)
         {
+            if (currentCase.isOccuped)
+                currentCase.DisableCollider();
             currentCase.SubscribeToClickUp(
                 delegate (Case clickedCase)
                 {
@@ -76,6 +69,18 @@ public class Jeu : MonoBehaviour
                 }
                 );
         }
+        foreach (Piece currentPiece in pieces)
+        {
+            currentPiece.DisableCollider();
+            currentPiece.SubscribeTo_CLICK_UP(
+                delegate (Piece clickedPiece)
+                {
+                    SelectPiece(clickedPiece);
+                }
+                );
+        }
+        isTurnToWhite = true;
+        MakeTurn(isTurnToWhite);
     }
 
     private void InstantiatePieceCases()
@@ -208,8 +213,9 @@ public class Jeu : MonoBehaviour
                                         {
                                             if (pieceCourante.isWhite != selectedPiece.isWhite)
                                             {
-                                                HilightCase(caseCourante, hilightEnemyColor);
+                                                caseCourante.SetColor(hilightEnemyColor);
                                                 potentialKillCases.Add(caseCourante);
+                                                break;
                                             }
                                             else
                                             {
@@ -220,7 +226,7 @@ public class Jeu : MonoBehaviour
                                 }
                                 else if (mustBreak == false)
                                 {
-                                    HilightCase(caseCourante, hilightColor);
+                                    caseCourante.SetColor(hilightColor);
                                     potentialMoveCases.Add(caseCourante);
                                 }
                                 else
@@ -378,8 +384,9 @@ public class Jeu : MonoBehaviour
                 break;
             //PION
             case 5:
-                //For the Pawn movements
+                //Pour les mouvements du pion:
                 int iLength;
+                bool hasToBreak = false;
                 if (selectedPiece.isStarting)
                 {
                     iLength = MOVES.movesPion_X.GetLength(0);
@@ -412,31 +419,14 @@ public class Jeu : MonoBehaviour
                             {
                                 if (caseCourante.isOccuped)
                                 {
-                                    foreach (Piece pieceCourante in pieces)
-                                    {
-                                        if (pieceCourante.CurrentCase == caseCourante)
-                                        {
-                                            if (pieceCourante.isWhite != selectedPiece.isWhite)
-                                            {
-                                                HilightCase(caseCourante, hilightEnemyColor);
-                                                potentialKillCases.Add(caseCourante);
-                                            }
-                                            else
-                                            {
-                                                mustBreak = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                else if (mustBreak == false)
-                                {
-                                    HilightCase(caseCourante, hilightColor);
-                                    potentialMoveCases.Add(caseCourante);
+                                    mustBreak = true;
+                                    hasToBreak = mustBreak;
+                                    break;
                                 }
                                 else
                                 {
-                                    break;
+                                    HilightCase(caseCourante, hilightColor);
+                                    potentialMoveCases.Add(caseCourante);
                                 }
                             }
                         }
@@ -445,6 +435,8 @@ public class Jeu : MonoBehaviour
                             break;
                         }
                     }
+                    if (hasToBreak)
+                        break;
                 }
                 //For the Pawn attacks
                 for (int i = 0; i < MOVES.attacksPion_X.GetLength(0); i++)
@@ -496,11 +488,22 @@ public class Jeu : MonoBehaviour
     {
         if (pieceSelected)
         {
-            if (potentialMoveCases.Contains(clickedCase))
+            //If the clicked case is one of the potential moves, then move the selected piece:
+            if (potentialMoveCases.Contains(clickedCase) || potentialKillCases.Contains(clickedCase))
             {
                 selectedPiece.MoveTo(clickedCase);
                 ClearHilightVisual();
                 pieceSelected = false;
+                foreach(Piece currentPiece in pieces)
+                {
+                    if (currentPiece.CurrentCase == clickedCase && currentPiece.isWhite != isTurnToWhite)
+                    {
+                        currentPiece.isDead = true;
+                        currentPiece.Die(deadCase);
+                    }
+                }
+                isTurnToWhite = !isTurnToWhite;
+                MakeTurn(isTurnToWhite);
             }
         }
     }
@@ -512,6 +515,37 @@ public class Jeu : MonoBehaviour
         foreach (Case caseCourante in cases)
         {
             caseCourante.ResetColor();
+        }
+    }
+
+    private void MakeTurn(bool turnToWhite)
+    {
+        //Update status:
+        UpdateOccupedCases();
+        //Disable every occupied cases colliders:
+        foreach (Case currentCase in cases)
+        {
+            if (currentCase.isOccuped)
+                currentCase.DisableCollider();
+        }
+        //Enable the right colliders
+        foreach (Piece currentPiece in pieces)
+        {
+            //Enable the pieces colliders
+            if (currentPiece.isWhite == turnToWhite && currentPiece.isDead == false)
+            {
+                currentPiece.EnableCollider();
+            }
+            else if (currentPiece.isDead)
+            {
+                currentPiece.DisableCollider();
+            }
+            //Enable the cases colliders && Disable the pieces collider
+            else
+            {
+                currentPiece.DisableCollider();
+                currentPiece.CurrentCase.EnableCollider();
+            }
         }
     }
 }
