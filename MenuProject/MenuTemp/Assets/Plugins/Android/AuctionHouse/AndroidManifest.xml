@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.mycompany.images" xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="preferExternal" android:theme="@android:style/Theme.NoTitleBar" >
+    <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true"/>
+	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="23" />
+    <application 
+     android:name="com.geniteam.bitszer.AppController"
+    android:icon="@drawable/app_icon" android:label="@string/app_name" android:debuggable="true">		
+        <activity android:name="com.unity3d.player.UnityPlayerNativeActivity" android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
+            <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
+        </activity>
+        
+   <activity
+            android:name="com.mycompany.images.DemoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat">
+        </activity>
+   
+        <activity
+            android:name="natives.my.mylibrary.AndroidCamera"
+            android:screenOrientation="portrait">
+        </activity>
+        
+          <activity
+            android:name="com.geniteam.bitszer.activities.Demo"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat">
+        </activity>
+
+        <activity android:name="com.geniteam.bitszer.activities.LoginActivity"
+		android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustNothing">
+            
+        </activity>
+
+        <activity
+            android:windowSoftInputMode="adjustNothing"
+            android:name="com.geniteam.bitszer.activities.MainActivity"
+			android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            />
+                                       
+       <activity
+            android:name="natives.my.mylibrary.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Base.Theme.AppCompat">
+        </activity>
+        
+    </application>
+        
+	<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
+</manifest>
